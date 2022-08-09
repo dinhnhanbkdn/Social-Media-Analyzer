@@ -30,3 +30,8 @@ mmh3
 psycopg2
 SQLAlchemy
 boto
+beautifulsoup4
+requests
+youtube_dl
+openpyxl
+ipykernel
