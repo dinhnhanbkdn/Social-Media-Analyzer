@@ -28,7 +28,6 @@ def tinhte(webpage_url):
     label_class_list = [['h4','jsx-3501530503 thread-title'], ['div','jsx-2206250852 thread'],
     ['div','jsx-1673213166 item'], ['article','jsx-2238569880'], ['div','jsx-1462321135 slider tinhte'],
     ['div','jsx-1462321135 slider tinhte'], ['h3','searchResultTitle']]
-    
     for label_class in label_class_list:
         try:
             titles = soup.findAll(label_class[0], class_=label_class[1])
