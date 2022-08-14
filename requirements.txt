@@ -34,4 +34,7 @@ beautifulsoup4
 requests
 youtube_dl
 openpyxl
+fastapi
+enum
+uvicorn
 ipykernel
