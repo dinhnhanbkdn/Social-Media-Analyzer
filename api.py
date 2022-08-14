@@ -77,13 +77,17 @@ def Youtube(playlist_or_List_of_url: Playlist_or_list, url: str, max_count: int,
 
 @app.get("/Appstore")
 def Appstore(url: str, max_count: int, lookup_period: str):
-    data = get_appstore_comment(url, max_count, lookup_period)
+    url = url.replace(" ","")
+    urls = list(url.split(","))
+    data = get_appstore_comment(urls, max_count, lookup_period)
     store_data_to_db.store_to_db(data)
     return convert_to_json(data)
 
 @app.get("/Playstore")
 def Playstore(url: str, max_count: int, lookup_period: str):
-    data = get_playstore_comment(url, max_count, lookup_period)
+    url = url.replace(" ","")
+    urls = list(url.split(","))
+    data = get_playstore_comment(urls, max_count, lookup_period)
     store_data_to_db.store_to_db(data)
     return convert_to_json(data)
 

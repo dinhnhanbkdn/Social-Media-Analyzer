@@ -7,36 +7,40 @@ from Scraper.website_crawler_source import TrafilaturaCrawlerConfig, Trafilatura
 import pandas as pd
 
 #get appstore comment
-def get_appstore_comment(url, max_count, lookup_period):
+def get_appstore_comment(urls, max_count, lookup_period):
     try:
-        source_config = AppStoreScrapperConfig(
-            app_url = url,
-            lookup_period = lookup_period,
-            max_count = max_count
-        )
-        source = AppStoreScrapperSource()
-        source_data = source.lookup(source_config)
         id = []
         author_name=[]
         title = []
         content = []
         rating = []
         platform = []
-        for i in range(0,max_count):
-            source_data[i]=dict(source_data[i])
-            id.append(source_data[i]["meta"]["id"])
-            author_name.append(source_data[i]["meta"]["author_name"])
-            title.append(source_data[i]["meta"]["title"])
-            content.append(source_data[i]["meta"]["content"])
-            rating.append(source_data[i]["meta"]["rating"])
-            platform.append('Appstore')
-        df=pd.DataFrame(list(zip(id,author_name,title,content,rating,platform)),columns=['id','author','title','content','rating','source'])
+        for url in urls:
+            try:
+                source_config = AppStoreScrapperConfig(
+                    app_url = url,
+                    lookup_period = lookup_period,
+                    max_count = max_count
+                )
+                source = AppStoreScrapperSource()
+                source_data = source.lookup(source_config)
+                for i in range(0,max_count):
+                    source_data[i]=dict(source_data[i])
+                    id.append(source_data[i]["meta"]["id"])
+                    author_name.append(source_data[i]["meta"]["author_name"])
+                    title.append(source_data[i]["meta"]["title"])
+                    content.append(source_data[i]["meta"]["content"])
+                    rating.append(source_data[i]["meta"]["rating"])
+                    platform.append('Appstore')
+                df=pd.DataFrame(list(zip(id,author_name,title,content,rating,platform)),columns=['id','author','title','content','rating','source'])
+            except:
+                pass
     except:
         raise ValueError("Your configuration is not valid!")
     return df
 
 #get playstore comment
-def get_playstore_comment(url, max_count, lookup_period):
+def get_playstore_comment(urls, max_count, lookup_period):
     try:
         userName = []
         content = []
@@ -44,22 +48,26 @@ def get_playstore_comment(url, max_count, lookup_period):
         id = []
         title = []
         platform = []
-        source_config = PlayStoreScrapperConfig(  
-           app_url = url,
-           max_count = max_count, 
-           lookup_period = lookup_period
-        )
-        source = PlayStoreScrapperSource()
-        data = source.lookup(source_config)    
-        for h in range (0, max_count):
-            data[h] = dict(data[h])
-            userName.append(data[h]["meta"]["userName"])
-            content.append(data[h]["meta"]["content"])
-            rating.append(data[h]["meta"]["score"])
-            id.append(data[h]["meta"]["reviewId"])
-            title.append(None)
-            platform.append('Playstore')
-        df = pd.DataFrame(list(zip(id,userName,title,content,rating,platform)), columns=['id','author','title','content','rating','source'])
+        for url in urls:
+            try:
+                source_config = PlayStoreScrapperConfig(  
+                app_url = url,
+                max_count = max_count, 
+                lookup_period = lookup_period
+                )
+                source = PlayStoreScrapperSource()
+                data = source.lookup(source_config)    
+                for h in range (0, max_count):
+                    data[h] = dict(data[h])
+                    userName.append(data[h]["meta"]["userName"])
+                    content.append(data[h]["meta"]["content"])
+                    rating.append(data[h]["meta"]["score"])
+                    id.append(data[h]["meta"]["reviewId"])
+                    title.append(None)
+                    platform.append('Playstore')
+                df = pd.DataFrame(list(zip(id,userName,title,content,rating,platform)), columns=['id','author','title','content','rating','source'])
+            except:
+                pass
     except:
         raise ValueError("Your configuration is not valid!")
     return df
@@ -67,8 +75,8 @@ def get_playstore_comment(url, max_count, lookup_period):
 #get reddit comment
 def get_reddit_comment(max_comment, url, period):
     source_config = RedditScrapperConfig(
-       url=url,
-       lookup_period=period
+    url=url,
+    lookup_period=period
     )
     source = RedditScrapperSource()
     data_source = source.lookup(source_config)
