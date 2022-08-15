@@ -177,7 +177,3 @@ def thanhnien(webpage_url):
         except:
             pass
     return output
-
-urls = thanhnien('https://thanhnien.vn/cong-nghe-game/')
-for url in urls:
-    print(url)
