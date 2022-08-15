@@ -10,10 +10,12 @@ app = FastAPI()
 class webpageName(str, Enum):
     tinhte = 'tinhte'
     genk = 'genk'
+    techz = 'techz'
     vietnamnet = 'vietnamnet'
     haibongio = '24h'
     tuoitre = 'tuoitre'
     vnexpress = 'vnexpress'
+    thanhnien = 'thanhnien'
     list_of_url = 'list_of_url'
 
 class Playlist_or_list(str, Enum):
@@ -35,6 +37,10 @@ def Website(webpage_name: webpageName, url: str):
         urls = genk(url)
         data = get_website_comment(urls)
         store_data_to_db.store_to_db(data)
+    elif webpage_name == 'techz':
+        urls = techz(url)
+        data = get_website_comment(urls)
+        store_data_to_db.store_to_db(data)
     elif webpage_name == 'vietnamnet':
         urls = vietnamnet(url)
         data = get_website_comment(urls)
@@ -49,6 +55,10 @@ def Website(webpage_name: webpageName, url: str):
         store_data_to_db.store_to_db(data)
     elif webpage_name == 'vnexpress':
         urls = vnexpress(url)
+        data = get_website_comment(urls)
+        store_data_to_db.store_to_db(data)
+    elif webpage_name == 'thanhnien':
+        urls = thanhnien(url)
         data = get_website_comment(urls)
         store_data_to_db.store_to_db(data)
     elif webpage_name == 'list_of_url':

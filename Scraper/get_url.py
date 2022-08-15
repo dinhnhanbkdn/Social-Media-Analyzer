@@ -57,6 +57,25 @@ def genk(webpage_url):
             pass
     return output
 
+#Techz.vn
+def techz(webpage_url):
+    headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36'}
+    response = requests.get(webpage_url, headers = headers)
+    soup = BeautifulSoup(response.content,'html.parser')
+    output = []
+    label_class_list = [['li','item'],['div','item_slide_one slick-slide slick-current slick-active'],['div','item_slide_one slick-slide slick-active'],
+    ['div','item_slide_one slick-slide slick-cloned'],['div','media-body'],['div','card-body py-2'],['div','card mb-2'], ]
+
+    for label_class in label_class_list:
+        try:
+            titles = soup.findAll(label_class[0], class_=label_class[1])
+            links = [link.find('a').attrs["href"] for link in titles]
+            for link in links:
+                output.append('https://www.techz.vn/' + url)
+        except:
+            pass
+    return output
+
 #VietnamNet.vn
 def vietnamnet(webpage_url):
     headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36'}
@@ -140,3 +159,25 @@ def vnexpress(webpage_url):
         except:
             pass
     return output
+
+#Thanhnien.vn
+def thanhnien(webpage_url):
+    headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36'}
+    response = requests.get(webpage_url, headers = headers)
+    soup = BeautifulSoup(response.content,'html.parser')
+    output = []
+    label_class_list =[['h2','']]
+
+    for label_class in label_class_list:
+        try:
+            titles = soup.findAll(label_class[0], class_=label_class[1])
+            links = [link.find('a').attrs["href"] for link in titles]
+            for link in links:
+                output.append('https://thanhnien.vn/'+link)
+        except:
+            pass
+    return output
+
+urls = thanhnien('https://thanhnien.vn/cong-nghe-game/')
+for url in urls:
+    print(url)

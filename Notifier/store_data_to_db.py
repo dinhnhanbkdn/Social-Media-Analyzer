@@ -36,6 +36,9 @@ class store_data_to_db:
             elif self.webpage_name=='genk':
                 urls=genk(self.url)
                 self.df=get_website_comment(urls)
+            elif self.webpage_name=='techz':
+                urls=techz(self.url)
+                self.df=get_website_comment(urls)
             elif self.webpage_name=='vietnamnet':
                 urls=vietnamnet(self.url)
                 self.df=get_website_comment(urls)
@@ -48,6 +51,9 @@ class store_data_to_db:
             elif self.webpage_name=='vnexpress':
                 urls=vnexpress(self.url)
                 self.df=get_website_comment(urls)
+            elif self.webpage_name=='thanhnien':
+                urls=thanhnien(self.url)
+                self.df = get_website_comment(urls)
             else:
                 raise ValueError('We cannot crawl data from this website')
         else:
